@@ -105,3 +105,24 @@ void detener() {
   analogWrite(ENA, 0);
   analogWrite(ENB, 0);
 }
+
+//control de bomba de agua
+
+void apagarFuego() {
+  digitalWrite(BOMBA, HIGH);  // Encender bomba
+
+  for (int i = 90; i <= 110; i++) {
+    servo.write(i);
+    delay(10);
+  }
+  for (int i = 110; i >= 70; i--) {
+    servo.write(i);
+    delay(10);
+  }
+  for (int i = 70; i <= 90; i++) {
+    servo.write(i);
+    delay(10);
+  }
+
+  digitalWrite(BOMBA, LOW);   // Apagar bomba
+}
