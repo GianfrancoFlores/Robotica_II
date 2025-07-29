@@ -9,8 +9,19 @@ const int IN3 = 9;
 const int IN4 = 10;
 const int ENB = 11;
 
+// Bomba
+const int BOMBA = 12;
+// Sensores de flama
+const int IZQ = A0, CENTRO = A1, DER = A2;
+// Ultrasónico
+const int trigPin = 5, echoPin = 4;
+
+Servo servo;
+
 // Variable para modo actual
 String modo_actual = "bluetooth";
+// Variables globales
+int sensor_izquierdo, sensor_centro, sensor_derecho;
 
 void setup() {
   // Inicialización de pines de motor
@@ -26,7 +37,20 @@ void setup() {
 }
 
 void loop() {
-  controlBluetooth();
+  sensor_izquierdo = analogRead(IZQ);
+  sensor_centro = analogRead(CENTRO);
+  sensor_derecho = analogRead(DER);
+
+  Serial.print("I: "); Serial.print(sensor_izquierdo);
+  Serial.print(" - C: "); Serial.print(sensor_centro);
+  Serial.print(" - D: "); Serial.println(sensor_derecho);
+
+  if (sensor_izquierdo < UMBRAL || sensor_centro < UMBRAL || sensor_derecho < UMBRAL) {
+    modo_actual = "auto";
+    seguirFuego();
+  } else {
+    controlBluetooth();
+  }
 }
 
 void controlBluetooth() {
@@ -106,7 +130,7 @@ void detener() {
   analogWrite(ENB, 0);
 }
 
-//control de bomba de agua
+//control de bomba de agua - Gustavo
 
 void apagarFuego() {
   digitalWrite(BOMBA, HIGH);  // Encender bomba
@@ -165,3 +189,4 @@ int obtenerDistancia() {
   float distance = duration * 0.0343 / 2;
   return distance;
 }
+
