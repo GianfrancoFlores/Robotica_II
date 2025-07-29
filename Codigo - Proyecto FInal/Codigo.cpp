@@ -126,3 +126,42 @@ void apagarFuego() {
 
   digitalWrite(BOMBA, LOW);   // Apagar bomba
 }
+
+// Deteccion de fuego - Gianfranco
+
+void seguirFuego() {
+  int distancia = obtenerDistancia();
+
+  if ((distancia > 0 && distancia < 20) || 
+      sensor_izquierdo < UMBRAL_CERCA || 
+      sensor_centro < UMBRAL_CERCA || 
+      sensor_derecho < UMBRAL_CERCA) {
+    detener();
+    apagarFuego();
+  } else if ((sensor_izquierdo < UMBRAL && sensor_izquierdo > UMBRAL_CERCA) || 
+             (sensor_centro < UMBRAL && sensor_centro > UMBRAL_CERCA) || 
+             (sensor_derecho < UMBRAL && sensor_derecho > UMBRAL_CERCA)) {
+
+    if (sensor_izquierdo < sensor_centro && sensor_izquierdo < sensor_derecho)
+      izquierda();
+    else if (sensor_derecho < sensor_centro && sensor_derecho < sensor_izquierdo)
+      derecha();
+    else
+      adelante();
+
+  } else {
+    detener();
+  }
+}
+
+int obtenerDistancia() {
+  digitalWrite(trigPin, LOW);
+  delayMicroseconds(2);
+  digitalWrite(trigPin, HIGH);
+  delayMicroseconds(10);
+  digitalWrite(trigPin, LOW);
+
+  long duration = pulseIn(echoPin, HIGH, 30000);
+  float distance = duration * 0.0343 / 2;
+  return distance;
+}
