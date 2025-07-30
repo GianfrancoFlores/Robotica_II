@@ -43,9 +43,9 @@ Este proyecto presenta el diseño y construcción de un **robot bombero con tele
 
 | Integrante                     | Contribución                                     |
 |-------------------------------|--------------------------------------------------|
-| Gianfranco Flores Vasquez     | Programación del robot y pruebas funcionales     |
-| Leopoldo Contreras Melendrez  | Desarrollo de la app móvil y documentación       |
-| Gustavo Huaila Ramos          | Ensamblaje del hardware y validación en campo    |
+| Gianfranco Flores Vasquez     | Desarrollo app movil y modulo de Deteccion de Fuego     |
+| Leopoldo Contreras Melendrez  | Modulo de movimiento y control Bluetooth , diagramas del sistema     |
+| Gustavo Huaila Ramos          | Modulo de ApagarFuego(Sistema de aspercion) y edicion del video   |
 
 ---
 
